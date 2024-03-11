@@ -4,7 +4,7 @@ namespace Challenges
 {
     internal class DigitAdder
     {
-        private readonly Digit[] RAM = new Digit[12];
+        private readonly Digit[] RAM = new Digit[9];
 
         public void Main()
         {
@@ -15,7 +15,7 @@ namespace Challenges
                     Console.Write("1: ");
                     SetNumber(0, Console.ReadLine());
                     Console.Write("2: ");
-                    SetNumber(4, Console.ReadLine());
+                    SetNumber(3, Console.ReadLine());
                     Process();
                     Console.WriteLine($"Result: {ReadResult()}");
                 }
@@ -31,9 +31,9 @@ namespace Challenges
         {
             ArgumentNullException.ThrowIfNull(value, nameof(value));
 
-            value = (int.Parse(value!) % 10000).ToString("D4");
+            value = (int.Parse(value!) % 1000).ToString("D3");
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 3; i++)
             {
                 RAM[startIndex + i] = Digit.Parse(value[i].ToString());
             }
@@ -43,9 +43,9 @@ namespace Challenges
         {
             var str = string.Empty;
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 3; i++)
             {
-                str += RAM[8 + i].ToString();
+                str += RAM[6 + i].ToString();
             }
 
             return str;
