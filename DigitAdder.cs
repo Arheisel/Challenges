@@ -53,6 +53,7 @@ namespace Challenges
                     }
                 }
             }
+            Console.WriteLine("PASSED all tests!");
         End:
             Console.Write("Press any key to exit...");
             Console.ReadKey(true);
