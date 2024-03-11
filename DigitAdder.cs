@@ -60,7 +60,7 @@ namespace Challenges
 
     internal struct Digit
     {
-        public static Digit Carry { get; private set; } = 0;
+        public static Digit Carry { get; private set; } = new Digit(0);
 
         private int _value;
 
