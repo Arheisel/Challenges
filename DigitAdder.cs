@@ -12,6 +12,7 @@ namespace Challenges
             {
                 try
                 {
+                    ClearRAM();
                     Console.Write("1: ");
                     SetNumber(0, Console.ReadLine());
                     Console.Write("2: ");
@@ -27,15 +28,55 @@ namespace Challenges
 
         }
 
+        public void Test()
+        {
+            for (int i = 0; i < 1000; i++)
+            {
+                for (int j = 0; j < 1000; j++)
+                {
+                    ClearRAM();
+                    SetNumber(0, i);
+                    SetNumber(3, j);
+                    Process();
+                    var res = int.Parse(ReadResult());
+
+                    var sum = (i + j) % 1000;
+
+                    if (res == sum)
+                    {
+                        Console.WriteLine($"{i} + {j} = {res} .. PASSED");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"{i} + {j} = {res} .. FAILED");
+                        goto End;
+                    }
+                }
+            }
+        End:
+            Console.Write("Press any key to exit...");
+            Console.ReadKey(true);
+        }
+
+        private void ClearRAM()
+        {
+            for (int i = 0; i < RAM.Length; i++) RAM[i] = new Digit(0);
+        }
+
         private void SetNumber(int startIndex, string? value)
         {
             ArgumentNullException.ThrowIfNull(value, nameof(value));
 
-            value = (int.Parse(value!) % 1000).ToString("D3");
+            SetNumber(startIndex, int.Parse(value));
+        }
+
+        private void SetNumber(int startIndex, int value)
+        {
+            var s = (value % 1000).ToString("D3");
 
             for (int i = 0; i < 3; i++)
             {
-                RAM[startIndex + i] = Digit.Parse(value[i].ToString());
+                RAM[startIndex + i] = Digit.Parse(s[i].ToString());
             }
         }
 
@@ -56,90 +97,90 @@ namespace Challenges
             //code goes here...
 
         }
-    }
 
-    internal struct Digit
-    {
-        public static Digit Carry { get; private set; } = new Digit(0);
-
-        private int _value;
-
-        public Digit(int value)
+        private struct Digit
         {
-            _value = Math.Abs(value) % 10;
-        }
+            public static Digit Carry { get; private set; } = new Digit(0);
 
-        public int Value
-        {
-            get => _value;
-            set => _value = Math.Abs(value) % 10;
-        }
+            private int _value;
 
-        public static Digit operator +(Digit a, Digit b)
-        {
-            var av = a.Value;
-            var bv = b.Value;
+            public Digit(int value)
+            {
+                _value = Math.Abs(value) % 10;
+            }
 
-            av += bv;
+            public int Value
+            {
+                get => _value;
+                set => _value = Math.Abs(value) % 10;
+            }
 
-            if (av > 9) Carry = new Digit(1);
-            else Carry = new Digit(0);
+            public static Digit operator +(Digit a, Digit b)
+            {
+                var av = a.Value;
+                var bv = b.Value;
 
-            return new Digit(av);
-        }
+                av += bv;
 
-        public static Digit operator +(Digit a, int b) => a + new Digit(b);
-        public static Digit operator +(int a, Digit b) => new Digit(a) + b;
+                if (av > 9) Carry = new Digit(1);
+                else Carry = new Digit(0);
 
-        public static bool operator ==(Digit a, Digit b)
-        {
-            return a.Value == b.Value;
-        }
+                return new Digit(av);
+            }
 
-        public static bool operator !=(Digit a, Digit b)
-        {
-            return a.Value != b.Value;
-        }
+            public static Digit operator +(Digit a, int b) => a + new Digit(b);
+            public static Digit operator +(int a, Digit b) => new Digit(a) + b;
 
-        public static bool operator >(Digit a, Digit b)
-        {
-            return a.Value > b.Value;
-        }
+            public static bool operator ==(Digit a, Digit b)
+            {
+                return a.Value == b.Value;
+            }
 
-        public static bool operator >=(Digit a, Digit b)
-        {
-            return a.Value >= b.Value;
-        }
+            public static bool operator !=(Digit a, Digit b)
+            {
+                return a.Value != b.Value;
+            }
 
-        public static bool operator <(Digit a, Digit b)
-        {
-            return a.Value < b.Value;
-        }
+            public static bool operator >(Digit a, Digit b)
+            {
+                return a.Value > b.Value;
+            }
 
-        public static bool operator <=(Digit a, Digit b)
-        {
-            return a.Value <= b.Value;
-        }
+            public static bool operator >=(Digit a, Digit b)
+            {
+                return a.Value >= b.Value;
+            }
 
-        public override string ToString()
-        {
-            return _value.ToString();
-        }
+            public static bool operator <(Digit a, Digit b)
+            {
+                return a.Value < b.Value;
+            }
 
-        public static Digit Parse(string s)
-        {
-            return new Digit(int.Parse(s));
-        }
+            public static bool operator <=(Digit a, Digit b)
+            {
+                return a.Value <= b.Value;
+            }
 
-        public override readonly bool Equals(object? obj)
-        {
-            if (obj is Digit d) return d.Value == _value;
-            else return false;
-        }
+            public override string ToString()
+            {
+                return _value.ToString();
+            }
 
-        public override readonly int GetHashCode()
-        {
-            return _value.GetHashCode();
+            public static Digit Parse(string s)
+            {
+                return new Digit(int.Parse(s));
+            }
+
+            public override readonly bool Equals(object? obj)
+            {
+                if (obj is Digit d) return d.Value == _value;
+                else return false;
+            }
+
+            public override readonly int GetHashCode()
+            {
+                return _value.GetHashCode();
+            }
         }
     }
 }

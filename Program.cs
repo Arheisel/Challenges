@@ -6,6 +6,7 @@
         {
             var challenge = new DigitAdder();
             challenge.Main();
+            //challenge.Test();
         }
     }
 }
