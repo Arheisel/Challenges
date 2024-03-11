@@ -60,7 +60,7 @@ namespace Challenges
 
     internal struct Digit
     {
-        public static int Carry { get; private set; } = 0;
+        public static Digit Carry { get; private set; } = 0;
 
         private int _value;
 
@@ -82,8 +82,8 @@ namespace Challenges
 
             av += bv;
 
-            if (av > 9) Carry = 1;
-            else Carry = 0;
+            if (av > 9) Carry = new Digit(1);
+            else Carry = new Digit(0);
 
             return new Digit(av);
         }
