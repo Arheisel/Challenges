@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Challenges
+namespace Challenges.Challenges
 {
-    internal class DigitAdder
+    internal class Ch_1
     {
         private readonly Digit[] RAM = new Digit[9];
 
@@ -54,9 +54,7 @@ namespace Challenges
                 }
             }
             Console.WriteLine("PASSED all tests!");
-        End:
-            Console.Write("Press any key to exit...");
-            Console.ReadKey(true);
+        End:;
         }
 
         private void ClearRAM()
@@ -96,7 +94,7 @@ namespace Challenges
         private void Process()
         {
             //code goes here...
-
+            
         }
 
         private struct Digit
@@ -137,30 +135,48 @@ namespace Challenges
                 return a.Value == b.Value;
             }
 
+            public static bool operator ==(int a, Digit b) => new Digit(a) == b;
+            public static bool operator ==(Digit a, int b) => a == new Digit(b);
+
             public static bool operator !=(Digit a, Digit b)
             {
                 return a.Value != b.Value;
             }
+
+            public static bool operator !=(int a, Digit b) => new Digit(a) != b;
+            public static bool operator !=(Digit a, int b) => a != new Digit(b);
 
             public static bool operator >(Digit a, Digit b)
             {
                 return a.Value > b.Value;
             }
 
+            public static bool operator >(int a, Digit b) => new Digit(a) > b;
+            public static bool operator >(Digit a, int b) => a > new Digit(b);
+
             public static bool operator >=(Digit a, Digit b)
             {
                 return a.Value >= b.Value;
             }
+
+            public static bool operator >=(int a, Digit b) => new Digit(a) >= b;
+            public static bool operator >=(Digit a, int b) => a >= new Digit(b);
 
             public static bool operator <(Digit a, Digit b)
             {
                 return a.Value < b.Value;
             }
 
+            public static bool operator <(int a, Digit b) => new Digit(a) < b;
+            public static bool operator <(Digit a, int b) => a < new Digit(b);
+
             public static bool operator <=(Digit a, Digit b)
             {
                 return a.Value <= b.Value;
             }
+
+            public static bool operator <=(int a, Digit b) => new Digit(a) <= b;
+            public static bool operator <=(Digit a, int b) => a <= new Digit(b);
 
             public override string ToString()
             {
