@@ -97,6 +97,19 @@ namespace Challenges.Challenges
             
         }
 
+        private void Solution()
+        {
+            RAM[8] = RAM[2] + RAM[5];
+            RAM[2] = Digit.Carry;
+
+            RAM[7] = RAM[1] + RAM[4];
+            RAM[1] = Digit.Carry;
+            RAM[7] += RAM[2];
+            RAM[1] += Digit.Carry;
+
+            RAM[6] = RAM[0] + RAM[1] + RAM[3];
+        }
+
         private struct Digit
         {
             public static Digit Carry { get; private set; } = new Digit(0);
