@@ -6,9 +6,9 @@ namespace Challenges
     {
         static void Main(string[] args)
         {
-            var challenge = new Ch_1();
-            //challenge.Main();
-            challenge.Test();
+            var challenge = new Ch_2();
+            challenge.Main();
+            //challenge.Test();
 
             //Console.Write("Press any key to exit...");
             //Console.ReadKey(true);
