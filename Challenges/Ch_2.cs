@@ -46,10 +46,14 @@ namespace Challenges.Challenges
 
         }
 
+        int i = 0;
+
         public override void Loop()
         {
-            //code goes here 
-            
+            Console.WriteLine(Array[i]);
+            i++;
+
+            if (i == Array.Length - 1) Stop(); 
         }
     }
 }
